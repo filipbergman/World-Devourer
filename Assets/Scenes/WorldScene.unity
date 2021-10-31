@@ -368,8 +368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a734278d5cf3b143a8fb1deec1da5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterThreshold: 38
-  noiseScale: 0.01
+  waterThreshold: 10
+  biomeNoiseSettings: {fileID: 11400000, guid: 566e7c53a72524c4895bd85a90171874, type: 2}
 --- !u!4 &562239848
 Transform:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 27, y: 21.891357}
+  m_AnchoredPosition: {x: 1577, y: 21.891357}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1033576702
