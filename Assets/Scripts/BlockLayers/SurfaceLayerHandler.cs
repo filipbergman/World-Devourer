@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SurfaceLayerHandler : MonoBehaviour
+public class SurfaceLayerHandler : BlockLayerHandler
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public BlockType surfaceBlockType;
 
-    // Update is called once per frame
-    void Update()
+    protected override bool TryHandling(ChunkData chunkData, int x, int y, int z, int surfaceHeightNoise, Vector2Int mapSeedOffset)
     {
-        
+        if (y == surfaceHeightNoise)
+        {
+            Vector3Int pos = new Vector3Int(x, y, z);
+            Chunk.SetBlock(chunkData, pos, surfaceBlockType);
+            return true;
+        }
+        return false;
     }
 }
