@@ -7,8 +7,13 @@ public class BiomeGenerator : MonoBehaviour
 {
     public int waterThreshold = 50;
     public NoiseSettings biomeNoiseSettings;
+    public DomainWarping domainWarping;
+
+    public bool useDomainWarping = true;
 
     public BlockLayerHandler startLayerHandler;
+
+    public List<BlockLayerHandler> additionalLayerHandlers;
 
     public ChunkData ProcessChunkColumn(ChunkData data, int x, int z, Vector2Int mapSeedOffset)
     {
@@ -17,34 +22,22 @@ public class BiomeGenerator : MonoBehaviour
         for (int y = 0; y < data.chunkHeight; y++)
         {
             startLayerHandler.Handle(data, x, y, z, groundPosition, mapSeedOffset);
-            //BlockType voxelType = BlockType.Dirt;
-            //if (y > groundPosition)
-            //{
-            //    if (y < waterThreshold)
-            //    {
-            //        voxelType = BlockType.Water;
-            //    } else
-            //    {
-            //        voxelType = BlockType.Air;
-            //    }
-
-            //} else if (y == groundPosition)
-            //{
-            //    if(y < waterThreshold)
-            //        voxelType = BlockType.Sand;
-            //    else 
-            //        voxelType = BlockType.Grass_Dirt;
-            //}
-
-
-            //Chunk.SetBlock(data, new Vector3Int(x, y, z), voxelType);
         }
+
+        foreach(var layer in additionalLayerHandlers)
+        {
+            layer.Handle(data, x, data.worldPosition.y, z, groundPosition, mapSeedOffset);
+        }  
         return data;
     }
 
     private int GetSurfaceHeightNoise(int x, int z, int chunkHeight)
     {
-        float terrainHeight = MyNoise.OctavePerlin(x, z, biomeNoiseSettings);
+        float terrainHeight;
+        if(useDomainWarping)
+            terrainHeight = domainWarping.GenerateDomainNoise(x, z, biomeNoiseSettings);
+        else
+            terrainHeight = MyNoise.OctavePerlin(x, z, biomeNoiseSettings);
         terrainHeight = MyNoise.Redistribution(terrainHeight, biomeNoiseSettings);
         int surfaceHeight = MyNoise.RemapValue01ToInt(terrainHeight, 0, chunkHeight);
         return surfaceHeight;
