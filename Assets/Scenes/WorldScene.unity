@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a734278d5cf3b143a8fb1deec1da5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterThreshold: 10
+  waterThreshold: 3
   biomeNoiseSettings: {fileID: 11400000, guid: 566e7c53a72524c4895bd85a90171874, type: 2}
   domainWarping: {fileID: 562239849}
   useDomainWarping: 1
@@ -817,6 +817,18 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: World, Assembly-CSharp
         m_MethodName: GenerateWorld
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1033576702}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1127,6 +1139,54 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1342347629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1342347631}
+  - component: {fileID: 1342347630}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1342347630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342347629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70c8497c3617cb47b33e3c9bbc2aff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 116692708104115924, guid: d43e9bef6cf8dc74dbbc13269406cc57, type: 3}
+  currentPlayerChunkPosition: {x: 0, y: 0, z: 0}
+  world: {fileID: 2086686528}
+  detectionTime: 1
+  camera_VM: {fileID: 34971077}
+--- !u!4 &1342347631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342347629}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 52.55796, y: 14.971, z: 17.84781}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1573586365
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,12 +1652,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e578af7ea2f5d74d963b9e26d5cdf2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapSizeInChunks: 6
+  mapSizeInChunks: 10
   chunkSize: 16
   chunkHeight: 100
+  chunkDrawingRange: 4
   chunkPrefab: {fileID: 1819124842614099663, guid: b38bef0b1b33bdb42aefeb35d8892bc9, type: 3}
   terrainGenerator: {fileID: 1720754914}
   mapSeedOffset: {x: 0, y: 0}
+  OnWorldCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1342347630}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: SpawnPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnNewChunksGenerated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1342347630}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: StartCheckingMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &2086686529
 Transform:
   m_ObjectHideFlags: 0
