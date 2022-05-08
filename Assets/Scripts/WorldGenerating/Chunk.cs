@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Chunk
@@ -60,10 +61,14 @@ public static class Chunk
         if (InRange(chunkData, localPosition.x) && InRangeHeight(chunkData, localPosition.y) && InRange(chunkData, localPosition.z))
         {
             int index = GetIndexFromPosition(chunkData, localPosition.x, localPosition.y, localPosition.z);
+            // TODO: add sound depending on what block is removed:
+            //Debug.Log("BLOCK DESTROYED: " + chunkData.blocks[index]);
+
+
             chunkData.blocks[index] = block;
         } else
         {
-            throw new Exception("Need to ask World for appropiate chunk");
+            WorldDataHelper.SetBlock(chunkData.worldReference, localPosition, block);
         }
     }
 
@@ -101,5 +106,48 @@ public static class Chunk
             z = Mathf.FloorToInt(z / (float)world.chunkSize) * world.chunkSize
         };
         return pos;
+    }
+
+    internal static bool IsOnEdge(ChunkData chunkData, Vector3Int worldPos)
+    {
+        Vector3Int chunkPos = GetBlockInChunkCoordinates(chunkData, worldPos);
+        if (
+            chunkPos.x == 0 || chunkPos.x == chunkData.chunkSize - 1 ||
+            chunkPos.y == 0 || chunkPos.y == chunkData.chunkHeight - 1 ||
+            chunkPos.z == 0 || chunkPos.z == chunkData.chunkSize - 1
+            )
+            return true;
+        return false;
+    }
+
+    internal static List<ChunkData> GetEdgeNeighbourChunk(ChunkData chunkData, Vector3Int worldPos)
+    {
+        Vector3Int chunkPos = GetBlockInChunkCoordinates(chunkData, worldPos);
+        List<ChunkData> neighbourToUpdate = new List<ChunkData>();
+        if(chunkPos.x == 0)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos - Vector3Int.right));
+        }
+        if (chunkPos.x == chunkData.chunkSize - 1)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos + Vector3Int.right)); 
+        }
+        if (chunkPos.y == 0)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos - Vector3Int.up));
+        }
+        if (chunkPos.y == chunkData.chunkHeight - 1)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos + Vector3Int.up)); 
+        }
+        if (chunkPos.z == 0)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos - Vector3Int.forward));
+        }
+        if (chunkPos.z == chunkData.chunkSize - 1)
+        {
+            neighbourToUpdate.Add(WorldDataHelper.GetChunkData(chunkData.worldReference, worldPos + Vector3Int.forward)); 
+        }
+        return neighbourToUpdate;
     }
 }

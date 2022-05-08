@@ -1326,7 +1326,7 @@ GameObject:
   - component: {fileID: 1693108339}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1655,7 +1655,7 @@ MonoBehaviour:
   mapSizeInChunks: 10
   chunkSize: 16
   chunkHeight: 100
-  chunkDrawingRange: 4
+  chunkDrawingRange: 2
   chunkPrefab: {fileID: 1819124842614099663, guid: b38bef0b1b33bdb42aefeb35d8892bc9, type: 3}
   terrainGenerator: {fileID: 1720754914}
   mapSeedOffset: {x: 0, y: 0}
