@@ -1655,7 +1655,7 @@ MonoBehaviour:
   mapSizeInChunks: 10
   chunkSize: 16
   chunkHeight: 100
-  chunkDrawingRange: 2
+  chunkDrawingRange: 4
   chunkPrefab: {fileID: 1819124842614099663, guid: b38bef0b1b33bdb42aefeb35d8892bc9, type: 3}
   terrainGenerator: {fileID: 1720754914}
   mapSeedOffset: {x: 0, y: 0}
