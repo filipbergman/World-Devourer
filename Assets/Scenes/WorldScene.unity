@@ -190,6 +190,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &295268873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295268875}
+  - component: {fileID: 295268874}
+  m_Layer: 0
+  m_Name: WorldRenderer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &295268874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295268873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb9f0e90e49dd647afc06d389821b98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunkPrefab: {fileID: 1819124842614099663, guid: b38bef0b1b33bdb42aefeb35d8892bc9, type: 3}
+--- !u!4 &295268875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295268873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.24199, y: 4.9399414, z: 8.291424}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &459069357
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,6 +597,7 @@ GameObject:
   - component: {fileID: 562239848}
   - component: {fileID: 562239847}
   - component: {fileID: 562239849}
+  - component: {fileID: 562239850}
   m_Layer: 0
   m_Name: BiomeGenerator
   m_TagString: Untagged
@@ -577,8 +622,10 @@ MonoBehaviour:
   domainWarping: {fileID: 562239849}
   useDomainWarping: 1
   startLayerHandler: {fileID: 459069359}
+  treeGenerator: {fileID: 562239850}
   additionalLayerHandlers:
   - {fileID: 535836156}
+  - {fileID: 1265103612}
 --- !u!4 &562239848
 Transform:
   m_ObjectHideFlags: 0
@@ -595,6 +642,7 @@ Transform:
   - {fileID: 1585956044}
   - {fileID: 657059365}
   - {fileID: 1069696888}
+  - {fileID: 1265103611}
   m_Father: {fileID: 1720754915}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -614,6 +662,20 @@ MonoBehaviour:
   noiseDomainY: {fileID: 11400000, guid: f56b02f8f2278f546baf5ed6beab4e50, type: 2}
   amplitudeX: 20
   amplitudeY: 20
+--- !u!114 &562239850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 562239846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3a3f2c18ca82d84b889d99ed704d00d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  treeNoiseSettings: {fileID: 11400000, guid: 16146c8b4bf210e4ebce18f1352eae12, type: 2}
+  domainWarping: {fileID: 562239849}
 --- !u!1 &657059364
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1137,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1139,6 +1201,51 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1265103610
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1265103611}
+  - component: {fileID: 1265103612}
+  m_Layer: 0
+  m_Name: TreeLayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1265103611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265103610}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 562239848}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1265103612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265103610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f783bb8dd7a8c5d4d83f765f5db84dbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Next: {fileID: 0}
+  terrainHeightLimit: 25
 --- !u!1 &1342347629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,8 +1762,9 @@ MonoBehaviour:
   mapSizeInChunks: 10
   chunkSize: 16
   chunkHeight: 100
-  chunkDrawingRange: 4
+  chunkDrawingRange: 8
   chunkPrefab: {fileID: 1819124842614099663, guid: b38bef0b1b33bdb42aefeb35d8892bc9, type: 3}
+  worldRenderer: {fileID: 295268874}
   terrainGenerator: {fileID: 1720754914}
   mapSeedOffset: {x: 0, y: 0}
   OnWorldCreated:

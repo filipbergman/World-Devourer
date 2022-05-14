@@ -165,12 +165,12 @@ MonoBehaviour:
   playerSpeed: 5
   playerRunSpeed: 8
   jumpHeight: 5
-  gravityValue: -9.81
-  flySpeed: 2
+  gravityValue: -12
+  flySpeed: 4
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  rayDistance: 1
+  rayDistance: 0.1
   <IsGrounded>k__BackingField: 0
 --- !u!1001 &116692707728663600
 PrefabInstance:

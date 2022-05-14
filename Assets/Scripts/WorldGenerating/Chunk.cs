@@ -68,7 +68,7 @@ public static class Chunk
             chunkData.blocks[index] = block;
         } else
         {
-            WorldDataHelper.SetBlock(chunkData.worldReference, localPosition, block);
+            WorldDataHelper.SetBlock(chunkData.worldReference, localPosition + chunkData.worldPosition, block);
         }
     }
 
