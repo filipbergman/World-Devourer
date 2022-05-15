@@ -46,6 +46,8 @@ public class World : MonoBehaviour
 
     private async Task GenerateWorld(Vector3Int position)
     {
+        terrainGenerator.GenerateBiomePoints(position, chunkDrawingRange, chunkSize, mapSeedOffset);
+        
         WorldGenerationData worldGenerationData = await Task.Run(() => GetVisiblePositions(position), taskTokenSource.Token);
 
         foreach (Vector3Int pos in worldGenerationData.chunkPositionsToRemove)

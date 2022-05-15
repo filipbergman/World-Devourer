@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void Fly(Vector3 movementInput, bool ascendInput, bool descendInput)
     {
+        playerSpeed = 50;
         Vector3 movementDirection = GetMovementDirection(movementInput);
 
         if(ascendInput)
