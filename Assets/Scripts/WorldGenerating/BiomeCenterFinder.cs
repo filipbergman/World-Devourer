@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class BiomeCenterFinder 
+public static class BiomeCenterFinder
 {
     public static List<Vector2Int> neighbours8Directions = new List<Vector2Int>
     {
@@ -21,25 +21,26 @@ public static class BiomeCenterFinder
         int biomeLength = drawRange * mapSize;
 
         Vector3Int origin = new Vector3Int(
-            Mathf.RoundToInt(playerPosition.x / biomeLength) * biomeLength, 
-            0, 
+            Mathf.RoundToInt(playerPosition.x / biomeLength) * biomeLength,
+            0,
             Mathf.RoundToInt(playerPosition.z / biomeLength) * biomeLength);
 
         HashSet<Vector3Int> biomeCentersTemp = new HashSet<Vector3Int>();
 
         biomeCentersTemp.Add(origin);
-        foreach (Vector2Int offsetXY in neighbours8Directions)
+
+        foreach (Vector2Int offsetXZ in neighbours8Directions)
         {
-            Vector3Int newBiomePoint_1 = new Vector3Int(origin.x + offsetXY.x * biomeLength, 0, origin.z + offsetXY.y * biomeLength);
-            Vector3Int newBiomePoint_2 = new Vector3Int(origin.x + offsetXY.x * biomeLength, 0, origin.z + offsetXY.y * 2 * biomeLength);
-            Vector3Int newBiomePoint_3 = new Vector3Int(origin.x + offsetXY.x * 2 * biomeLength, 0, origin.z + offsetXY.y * biomeLength);
-            Vector3Int newBiomePoint_4 = new Vector3Int(origin.x + offsetXY.x * 2 * biomeLength, 0, origin.z + offsetXY.y * 2 * biomeLength);
-            biomeCentersTemp.Add(newBiomePoint_1);
-            biomeCentersTemp.Add(newBiomePoint_2);
-            biomeCentersTemp.Add(newBiomePoint_3);
-            biomeCentersTemp.Add(newBiomePoint_4);
+            Vector3Int newBiomPoint_1 = new Vector3Int(origin.x + offsetXZ.x * biomeLength, 0, origin.z + offsetXZ.y * biomeLength);
+            Vector3Int newBiomPoint_2 = new Vector3Int(origin.x + offsetXZ.x * biomeLength, 0, origin.z + offsetXZ.y * 2 * biomeLength);
+            Vector3Int newBiomPoint_3 = new Vector3Int(origin.x + offsetXZ.x * 2 * biomeLength, 0, origin.z + offsetXZ.y * biomeLength);
+            Vector3Int newBiomPoint_4 = new Vector3Int(origin.x + offsetXZ.x * 2 * biomeLength, 0, origin.z + offsetXZ.y * 2 * biomeLength);
+            biomeCentersTemp.Add(newBiomPoint_1);
+            biomeCentersTemp.Add(newBiomPoint_2);
+            biomeCentersTemp.Add(newBiomPoint_3);
+            biomeCentersTemp.Add(newBiomPoint_4);
         }
+
         return new List<Vector3Int>(biomeCentersTemp);
     }
-
 }

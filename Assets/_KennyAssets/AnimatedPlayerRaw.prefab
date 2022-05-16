@@ -166,7 +166,7 @@ MonoBehaviour:
   playerRunSpeed: 8
   jumpHeight: 5
   gravityValue: -12
-  flySpeed: 4
+  flySpeed: 2
   groundMask:
     serializedVersion: 2
     m_Bits: 8
