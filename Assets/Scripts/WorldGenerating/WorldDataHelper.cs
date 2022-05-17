@@ -94,14 +94,15 @@ public static class WorldDataHelper
         return chunkDataPositionsToCreate;
     }
 
-    internal static void SetBlock(World worldReference, Vector3Int worldBlockPosition, BlockType blockType)
+    internal static BlockType SetBlock(World worldReference, Vector3Int worldBlockPosition, BlockType blockType)
     {
         ChunkData chunkData = GetChunkData(worldReference, worldBlockPosition);
         if(chunkData != null)
         {
             Vector3Int localPosition = Chunk.GetBlockInChunkCoordinates(chunkData, worldBlockPosition);
-            Chunk.SetBlock(chunkData, localPosition, blockType);
+            return Chunk.SetBlock(chunkData, localPosition, blockType);
         }
+        return BlockType.Air;
     }
 
     internal static ChunkRenderer GetChunk(World worldReference, Vector3Int worldPosition)

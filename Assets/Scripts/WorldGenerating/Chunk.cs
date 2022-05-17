@@ -4,7 +4,6 @@ using UnityEngine;
 
 public static class Chunk
 {
-
     public static void LoopThroughTheBlocks(ChunkData chunkData, Action<int, int, int> actionToPerform)
     {
         for (int index = 0; index < chunkData.blocks.Length; index++)
@@ -56,20 +55,19 @@ public static class Chunk
         return chunkData.worldReference.GetBlockFromChunkCoordinates(chunkData, chunkData.worldPosition.x + x, chunkData.worldPosition.y + y, chunkData.worldPosition.z + z);
     }
 
-    public static void SetBlock(ChunkData chunkData, Vector3Int localPosition, BlockType block)
+    public static BlockType SetBlock(ChunkData chunkData, Vector3Int localPosition, BlockType block)
     {
         if (InRange(chunkData, localPosition.x) && InRangeHeight(chunkData, localPosition.y) && InRange(chunkData, localPosition.z))
         {
             int index = GetIndexFromPosition(chunkData, localPosition.x, localPosition.y, localPosition.z);
-            // TODO: add sound depending on what block is removed:
-            //Debug.Log("BLOCK DESTROYED: " + chunkData.blocks[index]);
-
-
+            BlockType removedBlockType = chunkData.blocks[index];
             chunkData.blocks[index] = block;
+            return removedBlockType;
         } else
         {
             WorldDataHelper.SetBlock(chunkData.worldReference, localPosition + chunkData.worldPosition, block);
         }
+        return BlockType.Air;
     }
 
     private static int GetIndexFromPosition(ChunkData chunkData, int x, int y, int z)
