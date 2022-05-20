@@ -10,6 +10,6 @@ public class NoiseSettings : ScriptableObject
     public Vector2Int offset;
     public Vector2Int worldOffset;
     public float persistance; // spiky
-    public float redistributionModifier;
+    public float redistributionModifier; // High mountains
     public float exponent; // Plateu
 }

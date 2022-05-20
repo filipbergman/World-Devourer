@@ -62,6 +62,7 @@ public static class Chunk
             int index = GetIndexFromPosition(chunkData, localPosition.x, localPosition.y, localPosition.z);
             BlockType removedBlockType = chunkData.blocks[index];
             chunkData.blocks[index] = block;
+            
             return removedBlockType;
         } else
         {

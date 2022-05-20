@@ -23,8 +23,6 @@ public class Character : MonoBehaviour
 
     public World world;
 
-    
-
     private void Awake()
     {
         if (mainCamera == null)
@@ -90,6 +88,5 @@ public class Character : MonoBehaviour
     private void ModifyTerrain(RaycastHit hit)
     {
         world.SetBlock(hit, BlockType.Air);
-        //soundManager.PlaySound(BlockType.Air);
     }
 }

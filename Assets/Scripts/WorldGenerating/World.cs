@@ -19,6 +19,7 @@ public class World : MonoBehaviour
 
     public TerrainGenerator terrainGenerator;
     public SoundManager soundManager;
+    public ItemHandler itemHandler;
     public Vector2Int mapSeedOffset;
 
     CancellationTokenSource taskTokenSource = new CancellationTokenSource();
@@ -199,7 +200,10 @@ public class World : MonoBehaviour
         Vector3Int pos = GetBlockPos(hit);
 
         BlockType brokenBlock = WorldDataHelper.SetBlock(chunk.ChunkData.worldReference, pos, blockType);
+
         soundManager.PlaySound(brokenBlock); // Plays appropriate sound
+        itemHandler.BreakBlock(brokenBlock, pos);
+
 
         chunk.ModifiedByThePlayer = true;
 
