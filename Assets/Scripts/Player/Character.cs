@@ -23,6 +23,8 @@ public class Character : MonoBehaviour
 
     public World world;
 
+    public InventoryHandler inventoryHandler;
+
     private void Awake()
     {
         if (mainCamera == null)
@@ -30,11 +32,14 @@ public class Character : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerMovement = GetComponent<PlayerMovement>();
         world = FindObjectOfType<World>();
+        inventoryHandler = FindObjectOfType<InventoryHandler>();
+
     }
 
     private void Start()
     {
         playerInput.OnMouseClick += HandleMouseClick;
+        playerInput.OnMouseLeftClick += HandleMouseLeftClick;
         playerInput.OnFly += HandleFlyClick;
     }
 
@@ -75,6 +80,8 @@ public class Character : MonoBehaviour
         isWaiting = false;
     }
 
+
+
     private void HandleMouseClick()
     {
         Ray playerRay = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
@@ -85,8 +92,18 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void ModifyTerrain(RaycastHit hit)
+    private void HandleMouseLeftClick()
     {
-        world.SetBlock(hit, BlockType.Air);
+        Ray playerRay = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+        RaycastHit hit;
+        if (Physics.Raycast(playerRay, out hit, interactionRayLength, groundMask))
+        {
+            ModifyTerrain(hit, inventoryHandler.GetCurrentBlock());
+        }
+    }
+
+    private void ModifyTerrain(RaycastHit hit, BlockType block = BlockType.Air)
+    {
+        world.SetBlock(hit, block);
     }
 }

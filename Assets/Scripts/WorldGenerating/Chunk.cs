@@ -92,7 +92,6 @@ public static class Chunk
 
         LoopThroughTheBlocks(chunkData, (x, y, z) => meshData = BlockHelper.GetMeshData(chunkData, x, y, z, meshData, chunkData.blocks[GetIndexFromPosition(chunkData, x, y, z)]));
 
-
         return meshData;
     }
 

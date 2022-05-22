@@ -199,11 +199,28 @@ public class World : MonoBehaviour
 
         Vector3Int pos = GetBlockPos(hit);
 
+        
+        // If player is placing a new block:
+        if(blockType != BlockType.Air)
+        {
+            Vector3Int blockSide = new Vector3Int((int)hit.normal.x, (int)hit.normal.y, (int)hit.normal.z);
+            pos = new Vector3Int(pos.x, pos.y, pos.z) + blockSide;
+            // TODO: Check if player is inside placed block(i.e. 2 blocks)
+            Vector3Int playerPos = Vector3Int.RoundToInt(FindObjectOfType<Character>().transform.position);
+            Debug.Log("pos: " + pos);
+            Debug.Log("playerPos: " + playerPos);
+            Debug.Log("DISTANCE: " + Vector3.Distance(playerPos, pos));
+            if (playerPos == pos || new Vector3Int(playerPos.x, playerPos.y + 1, playerPos.z) == pos)
+            {
+                return false;
+            }
+            
+        }
+
         BlockType brokenBlock = WorldDataHelper.SetBlock(chunk.ChunkData.worldReference, pos, blockType);
 
         soundManager.PlaySound(brokenBlock); // Plays appropriate sound
-        itemHandler.BreakBlock(brokenBlock, pos);
-
+        itemHandler.BreakBlock(brokenBlock, pos); // Drops block on ground
 
         chunk.ModifiedByThePlayer = true;
 

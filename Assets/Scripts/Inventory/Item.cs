@@ -6,21 +6,22 @@ public abstract class Item
 {
     public GameObject itemPrefab;
     public int id;
+    public BlockType blockType;
 
-    public Item(GameObject itemPrefab, int id)
+    public Item(GameObject itemPrefab, int id, BlockType blockType)
     {
         this.itemPrefab = itemPrefab;
         this.id = id;
+        this.blockType = blockType;
     }
 }
 
 [System.Serializable]
 public class BlockItem : Item
 {
-    public BlockType blockType;
-    public BlockItem(GameObject itemPrefab, int id, string name, BlockType blockType) : base(itemPrefab, id) 
+    public BlockItem(GameObject itemPrefab, int id, string name, BlockType blockType) : base(itemPrefab, id, blockType) 
     {
-        this.blockType = blockType;
+        
     }
     
 }
