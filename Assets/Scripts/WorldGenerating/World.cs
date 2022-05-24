@@ -207,9 +207,9 @@ public class World : MonoBehaviour
             pos = new Vector3Int(pos.x, pos.y, pos.z) + blockSide;
             // TODO: Check if player is inside placed block(i.e. 2 blocks)
             Vector3Int playerPos = Vector3Int.RoundToInt(FindObjectOfType<Character>().transform.position);
-            Debug.Log("pos: " + pos);
-            Debug.Log("playerPos: " + playerPos);
-            Debug.Log("DISTANCE: " + Vector3.Distance(playerPos, pos));
+            //Debug.Log("pos: " + pos);
+            //Debug.Log("playerPos: " + playerPos);
+            //Debug.Log("DISTANCE: " + Vector3.Distance(playerPos, pos));
             if (playerPos == pos || new Vector3Int(playerPos.x, playerPos.y + 1, playerPos.z) == pos)
             {
                 return false;

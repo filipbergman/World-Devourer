@@ -32,23 +32,58 @@ public class InventoryHandler : MonoBehaviour
                 {
                     if (itemTransform.name.StartsWith(item.itemPrefab.name))
                     {
-                        Debug.Log("FOUND: " + item.id);
-                        InventorySlot invSlot = new InventorySlot(false, item);
-                        inventory.Add(invSlot);
+                        // Check if item already exists, if not add a new item to inventory:
+                        if(AddItemIfItemExists(item) == false)
+                        {
+                            InventorySlot invSlot = new InventorySlot(false, item, 1);
+                            inventory.Add(invSlot);
+                        }
                     }
                 }
                 Destroy(itemTransform.gameObject);
             }
         }
+
+        // TODO: update inventory UI after list change?
     }
 
     public BlockType GetCurrentBlock()
     {
         if(inventory.Count > 0)
         {
-            return inventory[0].item.blockType;
+            BlockType block = inventory[0].item.blockType;
+            ChangeInventorySlotAmount(0, -1);
+            return block;
         }
-        return BlockType.Air;
+        return BlockType.Nothing;
+    }
+
+    private void ChangeInventorySlotAmount(int slotIndex, int amount)
+    {
+        if(inventory[slotIndex].amount + amount == 0)
+        {
+            inventory.Remove(inventory[slotIndex]);
+            //inventory[slotIndex] = new InventorySlot(true, null, 0);
+            return;
+        }
+        inventory[slotIndex] = new InventorySlot(false, inventory[slotIndex].item, inventory[slotIndex].amount + amount);
+        Debug.Log("Amount after change: " + inventory[slotIndex].amount);
+    }
+
+    private bool AddItemIfItemExists(Item newItem)
+    {
+        int index = 0;
+        foreach (var slot in inventory)
+        {
+            if(slot.item == newItem)
+            {
+                inventory[index] = new InventorySlot(false, inventory[index].item, inventory[index].amount + 1);
+                Debug.Log("Added amount to same slot, new amount: " + inventory[index].amount);
+                return true;
+            }
+            index++;
+        }
+        return false;
     }
 
 }
@@ -57,12 +92,14 @@ struct InventorySlot
 {
     public bool free;
     public Item item;
-    public int amount;
+    public int amount { get; set; }
 
-    public InventorySlot(bool free, Item item)
+    public InventorySlot(bool free, Item item, int amount)
     {
         this.free = free;
         this.item = item;
-        amount = 1;
+        this.amount = amount;
     }
+
+
 }
