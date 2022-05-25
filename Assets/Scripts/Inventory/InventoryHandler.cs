@@ -12,11 +12,14 @@ public class InventoryHandler : MonoBehaviour
 
     private static List<InventorySlot> inventory;
 
+    public InventoryUI inventoryUI;
+
     void Start()
     {
         groundItems = transform.Find("/GroundItems");
         soundManager = transform.Find("/SoundManager").GetComponent<SoundManager>();
         itemHandler = transform.Find("/ItemHandler").GetComponent<ItemHandler>();
+        inventoryUI = transform.Find("/InventoryUI").GetComponent<InventoryUI>();
         inventory = new List<InventorySlot>();
     }
 
@@ -41,6 +44,7 @@ public class InventoryHandler : MonoBehaviour
                     }
                 }
                 Destroy(itemTransform.gameObject);
+                inventoryUI.UpdateUI(inventory);
             }
         }
 
@@ -63,10 +67,12 @@ public class InventoryHandler : MonoBehaviour
         if(inventory[slotIndex].amount + amount == 0)
         {
             inventory.Remove(inventory[slotIndex]);
+            inventoryUI.UpdateUI(inventory);
             //inventory[slotIndex] = new InventorySlot(true, null, 0);
             return;
         }
         inventory[slotIndex] = new InventorySlot(false, inventory[slotIndex].item, inventory[slotIndex].amount + amount);
+        inventoryUI.UpdateUI(inventory);
         Debug.Log("Amount after change: " + inventory[slotIndex].amount);
     }
 
@@ -78,6 +84,7 @@ public class InventoryHandler : MonoBehaviour
             if(slot.item == newItem)
             {
                 inventory[index] = new InventorySlot(false, inventory[index].item, inventory[index].amount + 1);
+                inventoryUI.UpdateUI(inventory);
                 Debug.Log("Added amount to same slot, new amount: " + inventory[index].amount);
                 return true;
             }
