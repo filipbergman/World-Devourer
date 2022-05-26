@@ -198,41 +198,45 @@ public class World : MonoBehaviour
             return false;
 
         Vector3Int pos = GetBlockPos(hit);
+        Vector3Int newBlockPos = pos;
+        BlockType brokenBlock;
 
-        
         // If player is placing a new block:
-        if(blockType != BlockType.Air)
+        if (blockType != BlockType.Air)
         {
             Vector3Int blockSide = new Vector3Int((int)hit.normal.x, (int)hit.normal.y, (int)hit.normal.z);
-            pos = new Vector3Int(pos.x, pos.y, pos.z) + blockSide;
-            // TODO: Check if player is inside placed block(i.e. 2 blocks)
+            newBlockPos = new Vector3Int(pos.x, pos.y, pos.z) + blockSide;
             Vector3Int playerPos = Vector3Int.RoundToInt(FindObjectOfType<Character>().transform.position);
-            //Debug.Log("pos: " + pos);
-            //Debug.Log("playerPos: " + playerPos);
-            //Debug.Log("DISTANCE: " + Vector3.Distance(playerPos, pos));
-            if (playerPos == pos || new Vector3Int(playerPos.x, playerPos.y + 1, playerPos.z) == pos)
+            if (playerPos == newBlockPos || new Vector3Int(playerPos.x, playerPos.y + 1, playerPos.z) == newBlockPos)
             {
                 return false;
             }
-            
+        } 
+        brokenBlock = WorldDataHelper.SetBlock(chunk.ChunkData.worldReference, newBlockPos, blockType);
+        if(blockType == BlockType.Air)
+        {
+            itemHandler.BreakBlock(brokenBlock, newBlockPos);   // Drops block on ground
+            soundManager.PlaySound(brokenBlock);                // Plays appropriate sound
+        } else
+        {
+            soundManager.PlaySound(blockType);
         }
+            
 
-        BlockType brokenBlock = WorldDataHelper.SetBlock(chunk.ChunkData.worldReference, pos, blockType);
 
-        soundManager.PlaySound(brokenBlock); // Plays appropriate sound
-        itemHandler.BreakBlock(brokenBlock, pos); // Drops block on ground
 
         chunk.ModifiedByThePlayer = true;
 
-        if(Chunk.IsOnEdge(chunk.ChunkData, pos))
+        if (Chunk.IsOnEdge(chunk.ChunkData, pos))
         {
             List<ChunkData> neighbourDataList = Chunk.GetEdgeNeighbourChunk(chunk.ChunkData, pos);
             foreach(var neighbourData in neighbourDataList)
             {
-                //neighbourData.modifiedByThePlayer = true;
                 ChunkRenderer chunkToUpdate = WorldDataHelper.GetChunk(neighbourData.worldReference, neighbourData.worldPosition);
                 if (chunkToUpdate != null)
+                {
                     chunkToUpdate.UpdateChunk();
+                }
             }
         }
         chunk.UpdateChunk();

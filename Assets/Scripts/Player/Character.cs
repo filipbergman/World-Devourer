@@ -101,7 +101,7 @@ public class Character : MonoBehaviour
             BlockType block = inventoryHandler.GetCurrentBlock();
             if (block != BlockType.Nothing)
             {
-                ModifyTerrain(hit, block);
+                AddBlockToTerrain(hit, block);
             }
             
         }
@@ -109,6 +109,17 @@ public class Character : MonoBehaviour
 
     private void ModifyTerrain(RaycastHit hit, BlockType block = BlockType.Air)
     {
-        world.SetBlock(hit, block);
+        bool blockSet = world.SetBlock(hit, block);
     }
+
+    private void AddBlockToTerrain(RaycastHit hit, BlockType block)
+    {
+        bool blockSet = world.SetBlock(hit, block);
+        if(blockSet == true)
+        {
+            inventoryHandler.ChangeInventorySlotAmount(0, -1);
+        }
+    }
+
+
 }
