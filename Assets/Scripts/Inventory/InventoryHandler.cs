@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +11,12 @@ public class InventoryHandler : MonoBehaviour
 
     public int itemPickupDistance = 2;
 
-    private static List<InventorySlot> inventory;
+    private static InventorySlot[] inventory;
+    private int invSize = 36;
+    private int currentItemIndex = 0;
 
     public InventoryUI inventoryUI;
+
 
     void Start()
     {
@@ -20,7 +24,8 @@ public class InventoryHandler : MonoBehaviour
         soundManager = transform.Find("/SoundManager").GetComponent<SoundManager>();
         itemHandler = transform.Find("/ItemHandler").GetComponent<ItemHandler>();
         inventoryUI = transform.Find("/InventoryUI").GetComponent<InventoryUI>();
-        inventory = new List<InventorySlot>();
+        inventory = new InventorySlot[invSize];
+        inventoryUI.SetCurrentSlot(currentItemIndex);
     }
 
     void Update()
@@ -39,39 +44,53 @@ public class InventoryHandler : MonoBehaviour
                         if(AddItemIfItemExists(item) == false)
                         {
                             InventorySlot invSlot = new InventorySlot(item, 1);
-                            inventory.Add(invSlot);
+                            AddToInventory(invSlot);
                         }
                     }
                 }
                 Destroy(itemTransform.gameObject);
+                Debug.Log("SIZE: " + inventory.Length);
                 inventoryUI.UpdateUI(inventory);
+            }
+        }
+    }
+
+    internal void ToggleInventory()
+    {
+        // TODO:
+        //Cursor.visible = !Cursor.visible;
+        inventoryUI.ToggleInventory();
+    }
+
+    private void AddToInventory(InventorySlot invSlot)
+    {
+        for (int i = 0; i < inventory.Length; i++)
+        {
+            if(inventory[i] == null)
+            {
+                inventory[i] = invSlot;
+                return;
             }
         }
     }
 
     public BlockType GetCurrentBlock()
     {
-        if(inventory.Count > 0)
-        {
-            //if(inventory[0].free == false)
-            //{
-            BlockType block = inventory[0].item.blockType;
-            return block;
-            //}
-        }
+        Debug.Log("GET BLOCK ON INDEX " + currentItemIndex);
+        if(inventory[currentItemIndex] != null)
+            return inventory[currentItemIndex].item.blockType;
         return BlockType.Nothing;
     }
 
-    public void ChangeInventorySlotAmount(int slotIndex, int amount)
+    public void ChangeInventorySlotAmount(int amount)
     {
-        if(inventory[slotIndex].amount + amount == 0)
+        if(inventory[currentItemIndex].amount + amount == 0)
         {
-            //inventory[slotIndex].free = true;
-            inventory.Remove(inventory[slotIndex]);
-            inventoryUI.RemoveSlot(inventory, slotIndex);
+            inventory[currentItemIndex] = null;
+            inventoryUI.RemoveSlot(currentItemIndex);
             return;
         }
-        inventory[slotIndex] = new InventorySlot(inventory[slotIndex].item, inventory[slotIndex].amount + amount);
+        inventory[currentItemIndex] = new InventorySlot(inventory[currentItemIndex].item, inventory[currentItemIndex].amount + amount);
         inventoryUI.UpdateUI(inventory);
     }
 
@@ -80,7 +99,7 @@ public class InventoryHandler : MonoBehaviour
         int index = 0;
         foreach (var slot in inventory)
         {
-            if(slot.item == newItem)
+            if(slot != null && slot.item == newItem)
             {
                 inventory[index] = new InventorySlot(inventory[index].item, inventory[index].amount + 1);
                 return true;
@@ -90,17 +109,37 @@ public class InventoryHandler : MonoBehaviour
         return false;
     }
 
+    public void SetCurrentItem(int index)
+    {
+        if (index <= inventory.Length)
+        {
+            currentItemIndex = index;
+            inventoryUI.SetCurrentSlot(currentItemIndex);
+        }  
+    }
+    public void ScrollWheelChangeCurrentItem(float val)
+    {
+        if (val < 0)
+        {
+            if (--currentItemIndex == -1)
+                currentItemIndex = invSize-1;
+        } else
+        {
+            if (++currentItemIndex == invSize)
+                currentItemIndex = 0;
+        }
+        inventoryUI.SetCurrentSlot(currentItemIndex);
+    }
+
 }
 
 public class InventorySlot
 {
-    //public bool free { get; set; }
     public Item item;
     public int amount { get; set; }
 
     public InventorySlot(Item item, int amount)
     {
-        //this.free = free;
         this.item = item;
         this.amount = amount;
     }

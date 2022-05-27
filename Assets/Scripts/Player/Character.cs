@@ -41,6 +41,24 @@ public class Character : MonoBehaviour
         playerInput.OnMouseClick += HandleMouseClick;
         playerInput.OnMouseRightClick += HandleMouseRightClick;
         playerInput.OnFly += HandleFlyClick;
+        playerInput.OnKeyButtonClick += HandleNumberClick;
+        playerInput.OnScrollInput += HandleScrollInput;
+        playerInput.OnInventory += HandleInventoryInput;
+    }
+
+    private void HandleInventoryInput()
+    {
+        inventoryHandler.ToggleInventory();
+    }
+
+    private void HandleScrollInput(float val)
+    {
+        inventoryHandler.ScrollWheelChangeCurrentItem(val);
+    }
+
+    private void HandleNumberClick(int number)
+    {
+        inventoryHandler.SetCurrentItem(number);
     }
 
     private void HandleFlyClick()
@@ -117,7 +135,7 @@ public class Character : MonoBehaviour
         bool blockSet = world.SetBlock(hit, block);
         if(blockSet == true)
         {
-            inventoryHandler.ChangeInventorySlotAmount(0, -1);
+            inventoryHandler.ChangeInventorySlotAmount(-1);
         }
     }
 
