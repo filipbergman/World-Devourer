@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour
     public event Action OnMouseClick, OnMouseRightClick, OnFly, OnInventory;
     public event Action<int> OnKeyButtonClick;
     public event Action<float> OnScrollInput;
+    public bool backPackOpen = false;
 
     public bool RunningPressed { get; private set; }
     public Vector3 MovementInput { get; private set; }
@@ -46,6 +47,7 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            backPackOpen = !backPackOpen;
             OnInventory?.Invoke();
         }
     }

@@ -316,7 +316,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 85735355}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 85735353}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &85735355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -510,7 +522,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 119446306}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 119446304}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &119446306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -714,7 +738,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 157087638}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 157087636}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &157087638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,7 +867,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 158290989}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 158290987}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &158290989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1234,7 +1282,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 317862578}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 317862577}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &346296151
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,7 +1376,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 346296154}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 346296152}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &346296154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1433,7 +1505,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 369577466}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 369577464}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &369577466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,7 +1758,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 476357815}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 476357817}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &501331471
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +2591,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 669195624}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 669195622}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &669195624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2709,7 +2817,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 772204838}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 772204840}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &777054732
 GameObject:
   m_ObjectHideFlags: 0
@@ -2791,7 +2911,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 777054735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 777054733}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &777054735
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2908,7 +3040,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 784309706}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 784309704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &784309706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3142,7 +3286,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 846264782}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 846264780}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &846264782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3365,7 +3521,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 922469418}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 922469417}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &940755370
 GameObject:
   m_ObjectHideFlags: 0
@@ -3725,7 +3893,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1050715367}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1050715365}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1050715367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3877,7 +4057,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1056759070}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1056759069}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1069696887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3990,7 +4182,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1131311870}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1131311868}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1131311870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4142,7 +4346,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1172160874}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1172160873}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1182347411
 GameObject:
   m_ObjectHideFlags: 0
@@ -4361,7 +4577,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1207756139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1207756137}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1207756139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4478,7 +4706,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1236290572}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1236290570}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1236290572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4757,7 +4997,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1318527639}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1318527637}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1318527639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4874,7 +5126,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1329225547}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1329225545}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1329225547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5083,7 +5347,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1367365257}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1367365255}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1367365257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5200,7 +5476,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1408948221}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1408948219}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1408948221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5385,7 +5673,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1489463045}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1489463043}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1489463045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5661,7 +5961,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1610589057}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1610589056}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1619663841
 GameObject:
   m_ObjectHideFlags: 0
@@ -5780,9 +6092,8 @@ MonoBehaviour:
   UISlotParentList:
   - {fileID: 1357575041}
   - {fileID: 727535125}
-  UIItemPrefab: {fileID: 7016071617298642564, guid: 44649c7a6cfb93e43b98d91424a8c564, type: 3}
-  amountTextPrefab: {fileID: 6055135351577198562, guid: 68bff4291b643ca4ea5541f130eaa633, type: 3}
   backpack: {fileID: 103334147}
+  UISlotPrefab: {fileID: 2280339216550475252, guid: 02c6f3ac1a912ce43b1e17f0f1e67d10, type: 3}
 --- !u!1 &1622309567
 GameObject:
   m_ObjectHideFlags: 0
@@ -5981,7 +6292,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1649593270}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1649593268}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1649593270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6098,7 +6421,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1678272987}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1678272985}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1678272987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6325,6 +6660,36 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &1695896469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1695896470}
+  m_Layer: 0
+  m_Name: ChunkPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1695896470
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695896469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 8.148215, y: 7.9245996, z: 8.149614}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1712563843
 GameObject:
   m_ObjectHideFlags: 0
@@ -6629,7 +6994,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1759674833}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1759674832}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1854744941
 GameObject:
   m_ObjectHideFlags: 0
@@ -6711,7 +7088,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1854744944}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1854744942}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1854744944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6858,7 +7247,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1976857798}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1976857796}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1976857798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7010,7 +7411,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2027834370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2027834369}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2032427154
 GameObject:
   m_ObjectHideFlags: 0
@@ -7092,7 +7505,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032427157}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2032427155}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2032427157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7209,7 +7634,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2042929406}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2042929404}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2042929406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7459,7 +7896,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2113065778}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2113065776}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2113065778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7576,7 +8025,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2141948120}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1619663846}
+        m_TargetAssemblyTypeName: InventoryUI, Assembly-CSharp
+        m_MethodName: HandleSlotClick
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2141948118}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2141948120
 MonoBehaviour:
   m_ObjectHideFlags: 0

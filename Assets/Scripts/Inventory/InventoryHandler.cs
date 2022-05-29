@@ -13,10 +13,10 @@ public class InventoryHandler : MonoBehaviour
 
     private static InventorySlot[] inventory;
     private int invSize = 36;
+    private int bottonInvSize = 9;
     private int currentItemIndex = 0;
 
     public InventoryUI inventoryUI;
-
 
     void Start()
     {
@@ -49,7 +49,6 @@ public class InventoryHandler : MonoBehaviour
                     }
                 }
                 Destroy(itemTransform.gameObject);
-                Debug.Log("SIZE: " + inventory.Length);
                 inventoryUI.UpdateUI(inventory);
             }
         }
@@ -76,7 +75,7 @@ public class InventoryHandler : MonoBehaviour
 
     public BlockType GetCurrentBlock()
     {
-        Debug.Log("GET BLOCK ON INDEX " + currentItemIndex);
+        //Debug.Log("GET BLOCK ON INDEX " + currentItemIndex);
         if(inventory[currentItemIndex] != null)
             return inventory[currentItemIndex].item.blockType;
         return BlockType.Nothing;
@@ -122,19 +121,28 @@ public class InventoryHandler : MonoBehaviour
         if (val < 0)
         {
             if (--currentItemIndex == -1)
-                currentItemIndex = invSize-1;
+                currentItemIndex = bottonInvSize - 1;
         } else
         {
-            if (++currentItemIndex == invSize)
+            if (++currentItemIndex == bottonInvSize)
                 currentItemIndex = 0;
         }
         inventoryUI.SetCurrentSlot(currentItemIndex);
+    }
+
+    public void UpdateInventory(InventorySlot inventorySlot, int oldIndex, int newIndex)
+    {
+        Debug.Log("slot: " + inventorySlot);
+        inventory[oldIndex] = null;
+        inventory[newIndex] = inventorySlot;
+        inventoryUI.UpdateUI(inventory);
     }
 
 }
 
 public class InventorySlot
 {
+    public int slotIndex;
     public Item item;
     public int amount { get; set; }
 

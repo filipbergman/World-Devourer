@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,6 +49,10 @@ public class Character : MonoBehaviour
 
     private void HandleInventoryInput()
     {
+        //FindObjectOfType<CinemachineVirtualCamera>().enabled = !playerInput.backPackOpen;
+        //FindObjectOfType<CinemachineBrain>().enabled = !playerInput.backPackOpen;
+        Cursor.visible = playerInput.backPackOpen;
+        Cursor.lockState = CursorLockMode.Confined;
         inventoryHandler.ToggleInventory();
     }
 
@@ -68,6 +73,7 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
+        
         if(fly)
         {
             animator.SetFloat("speed", 0);
@@ -87,6 +93,10 @@ public class Character : MonoBehaviour
             }
             animator.SetFloat("speed", playerInput.MovementInput.magnitude);
             playerMovement.HandleGravity(playerInput.IsJumping);
+            if (playerInput.backPackOpen == true)
+            {
+                return;
+            }
             playerMovement.Walk(playerInput.MovementInput, playerInput.RunningPressed);
         }
     }
@@ -102,11 +112,14 @@ public class Character : MonoBehaviour
 
     private void HandleMouseClick()
     {
-        Ray playerRay = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
-        RaycastHit hit;
-        if (Physics.Raycast(playerRay, out hit, interactionRayLength, groundMask))
+        if(playerInput.backPackOpen == false)
         {
-            ModifyTerrain(hit);
+            Ray playerRay = new Ray(mainCamera.transform.position, mainCamera.transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(playerRay, out hit, interactionRayLength, groundMask))
+            {
+                ModifyTerrain(hit);
+            }
         }
     }
 

@@ -27,7 +27,7 @@ public class WorldRenderer : MonoBehaviour
         }
         else
         {
-            GameObject chunkObject = Instantiate(chunkPrefab, position, Quaternion.identity);
+            GameObject chunkObject = Instantiate(chunkPrefab, position, Quaternion.identity, transform.Find("/ChunkPool"));
             newChunk = chunkObject.GetComponent<ChunkRenderer>();
         }
 
