@@ -130,10 +130,14 @@ public class InventoryHandler : MonoBehaviour
         inventoryUI.SetCurrentSlot(currentItemIndex);
     }
 
-    public void UpdateInventory(InventorySlot inventorySlot, int oldIndex, int newIndex)
+    public void UpdateInventory(InventorySlot inventorySlot, int oldIndex, int newIndex, bool removeOld)
     {
-        Debug.Log("slot: " + inventorySlot);
-        inventory[oldIndex] = null;
+        Debug.Log("Blocktype " + inventorySlot.item.blockType + " added to inventory slot " + newIndex);
+        if(removeOld == true)
+        {
+            inventory[oldIndex] = null;
+            Debug.Log("Removing blocktype " + inventory[oldIndex]?.item.blockType + " at slot " + oldIndex);
+        }
         inventory[newIndex] = inventorySlot;
         inventoryUI.UpdateUI(inventory);
     }

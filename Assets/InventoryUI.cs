@@ -16,6 +16,7 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot holdingInventorySlot;
     private int oldIndex;
     private bool holdingItem = false;
+    private bool replacedItem = false;
 
     private void Start()
     {
@@ -81,62 +82,60 @@ public class InventoryUI : MonoBehaviour
 
     public void HandleSlotClick(Transform slotTransform)
     {
-        Debug.Log("CLICK: " + slotTransform);
         if(slotTransform.childCount > 0)
         {
             if (holdingItem) // Replace item being held
             {
-                // TODO:
+                StopAllCoroutines();
+                Destroy(holdingObjectTransform.gameObject);
+                
+                // Picking up new item from slot
+                Transform newItemTransform = slotTransform.GetChild(0).transform;
+                holdingObjectTransform = newItemTransform;
+                newItemTransform.SetParent(transform);
+                StartCoroutine("ItemFollowMouse", newItemTransform);
+                InventorySlot tempSlot = UISlotList[int.Parse(slotTransform.name) - 1].inventorySlot;
 
+                // Placing old item in slot
                 UpdateUIInventory(slotTransform);
-            } else
+
+                // Getting block from clicked slot.
+                oldIndex = int.Parse(slotTransform.name) - 1;
+                holdingInventorySlot = tempSlot;
+                replacedItem = true;
+            }
+            else // holding no item: Clicked on slot with item
             {
                 holdingItem = true;
                 oldParent = slotTransform;
-
                 Transform itemTransform = slotTransform.GetChild(0).transform;
                 holdingObjectTransform = itemTransform;
                 itemTransform.SetParent(transform);
-                for (int i = 0; i < UISlotList.Count; i++)
-                {
-                    if (UISlotList[i].itemTransform == slotTransform)
-                    {
-                        oldIndex = i;
-                        holdingInventorySlot = UISlotList[i].inventorySlot;
-
-                    }
-                }
                 StartCoroutine("ItemFollowMouse", itemTransform);
+                oldIndex = int.Parse(slotTransform.name) - 1;
+                holdingInventorySlot = UISlotList[oldIndex].inventorySlot;
             }
-            
         } 
-        else if(holdingItem) 
+        else if(holdingItem) // holding item: Clicked on slot with no item
         {
-            // Put item in slotTransform
             Destroy(holdingObjectTransform.gameObject);
             holdingObjectTransform = null;
             holdingItem = false;
             UpdateUIInventory(slotTransform);
+            replacedItem = false;
         }
         
     }
 
     private void UpdateUIInventory(Transform slotTransform)
     {
-        for (int i = 0; i < UISlotList.Count; i++)
-        {
-            if(slotTransform == UISlotList[i].itemTransform)
-            {
-                int newIndex = i;
-                FindObjectOfType<InventoryHandler>().UpdateInventory(holdingInventorySlot, oldIndex, newIndex);
-                holdingInventorySlot = null;
-            }
-        }
+        int newIndex = int.Parse(slotTransform.name) - 1;
+        FindObjectOfType<InventoryHandler>().UpdateInventory(holdingInventorySlot, oldIndex, newIndex, !replacedItem);
+        holdingInventorySlot = null;
     }
 
     IEnumerator ItemFollowMouse(Transform itemTransform)
     {
-
         while(backpack.activeSelf && holdingItem)
         {
             itemTransform.position = Input.mousePosition; 
