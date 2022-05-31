@@ -47,13 +47,20 @@ public class Character : MonoBehaviour
         playerInput.OnInventory += HandleInventoryInput;
     }
 
-    private void HandleInventoryInput()
+    private void HandleInventoryInput(KeyCode keyCode)
     {
-        //FindObjectOfType<CinemachineVirtualCamera>().enabled = !playerInput.backPackOpen;
-        //FindObjectOfType<CinemachineBrain>().enabled = !playerInput.backPackOpen;
-        Cursor.visible = playerInput.backPackOpen;
-        Cursor.lockState = CursorLockMode.Confined;
-        inventoryHandler.ToggleInventory();
+        if(keyCode == KeyCode.E)
+        {
+            //FindObjectOfType<CinemachineVirtualCamera>().enabled = !playerInput.backPackOpen;
+            //FindObjectOfType<CinemachineBrain>().enabled = !playerInput.backPackOpen;
+            Cursor.visible = playerInput.backPackOpen;
+            Cursor.lockState = CursorLockMode.Confined;
+            inventoryHandler.ToggleInventory();
+        }
+        if(keyCode == KeyCode.Q)
+        {
+            inventoryHandler.DropItem();
+        }
     }
 
     private void HandleScrollInput(float val)

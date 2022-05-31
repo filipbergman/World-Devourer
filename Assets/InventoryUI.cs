@@ -57,6 +57,25 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    internal void DropItem(int currentItemIndex)
+    {
+        RemoveSlot(currentItemIndex);
+        // Drop item on ground: // TODO: make sure it does not drop under the ground
+        GameObject prefab = UISlotList[currentItemIndex].inventorySlot.item.itemPrefab;
+        Transform itemPool = transform.Find("/GroundItems");
+        Transform characterTransform = FindObjectOfType<InventoryHandler>().transform;
+        Transform cameraTransform = FindObjectOfType<Camera>().transform;
+        Vector3 spawnPosition = characterTransform.transform.position +
+                                        (2 * cameraTransform.forward.normalized) +
+                                        new Vector3(0, 2, 0);
+        for (int i = 0; i < UISlotList[currentItemIndex].inventorySlot.amount; i++)
+        {
+            GameObject dropBlock = Instantiate(prefab, itemPool);
+            dropBlock.transform.position = spawnPosition;
+            dropBlock.GetComponent<Rigidbody>().AddForce(100 * cameraTransform.forward.normalized);
+        }
+    }
+
     public void SetCurrentSlot(int index)
     {
         UISlotList[index].itemTransform.GetComponent<RawImage>().color = new Color32(120, 120, 120, 255);

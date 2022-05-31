@@ -9,7 +9,7 @@ public class InventoryHandler : MonoBehaviour
     public SoundManager soundManager;
     public ItemHandler itemHandler;
 
-    public int itemPickupDistance = 2;
+    public int itemPickupDistance = 1;
 
     private static InventorySlot[] inventory;
     private int invSize = 36;
@@ -52,6 +52,12 @@ public class InventoryHandler : MonoBehaviour
                 inventoryUI.UpdateUI(inventory);
             }
         }
+    }
+
+    internal void DropItem()
+    {
+        inventoryUI.DropItem(currentItemIndex);
+        inventory[currentItemIndex] = null;
     }
 
     internal void ToggleInventory()

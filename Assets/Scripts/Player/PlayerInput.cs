@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public event Action OnMouseClick, OnMouseRightClick, OnFly, OnInventory;
+    public event Action OnMouseClick, OnMouseRightClick, OnFly;
     public event Action<int> OnKeyButtonClick;
     public event Action<float> OnScrollInput;
+    public event Action<KeyCode> OnInventory;
     public bool backPackOpen = false;
 
     public bool RunningPressed { get; private set; }
@@ -48,7 +49,11 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             backPackOpen = !backPackOpen;
-            OnInventory?.Invoke();
+            OnInventory?.Invoke(KeyCode.E);
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            OnInventory?.Invoke(KeyCode.Q);
         }
     }
 
