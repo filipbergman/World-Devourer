@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public event Action OnMouseClick, OnMouseRightClick, OnFly;
+    public event Action OnMouseRightClick, OnFly;
+    public event Action<Vector2> OnMouseClick;
     public event Action<int> OnKeyButtonClick;
     public event Action<float> OnScrollInput;
     public event Action<KeyCode> OnInventory;
@@ -90,7 +91,8 @@ public class PlayerInput : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            OnMouseClick?.Invoke();
+            Vector2 mousePos = Input.mousePosition;
+            OnMouseClick?.Invoke(mousePos);
         }
     }
 

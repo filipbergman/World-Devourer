@@ -54,10 +54,24 @@ public class InventoryHandler : MonoBehaviour
         }
     }
 
-    internal void DropItem()
+    internal void DropAllItems()
     {
-        inventoryUI.DropItem(currentItemIndex);
+        inventoryUI.DropHoldingItem(currentItemIndex);
         inventory[currentItemIndex] = null;
+    }
+
+    internal void DropOneItem()
+    {
+        if(inventory[currentItemIndex] != null)
+        {
+            inventoryUI.DropOneItem(currentItemIndex);
+            ChangeInventorySlotAmount(-1);
+        }
+    }
+
+    public bool HoldingItem()
+    {
+        return inventoryUI.HoldingItem();
     }
 
     internal void ToggleInventory()

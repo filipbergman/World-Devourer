@@ -13,6 +13,10 @@ public class Character : MonoBehaviour
     [SerializeField]
     private PlayerMovement playerMovement;
 
+    private Transform backpackUI;
+    private float UIleftEdge;
+    private float UIrightEdge;
+
     public float interactionRayLength = 5;
 
     public LayerMask groundMask;
@@ -34,6 +38,11 @@ public class Character : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         world = FindObjectOfType<World>();
         inventoryHandler = FindObjectOfType<InventoryHandler>();
+        backpackUI = transform.Find("/InventoryUI/BottomUI");
+        float UIWidth = backpackUI.transform.GetComponent<RectTransform>().rect.width;
+
+        UIleftEdge = backpackUI.position.x - (UIWidth / 2);
+        UIrightEdge = backpackUI.position.x + (UIWidth / 2);
 
     }
 
@@ -59,7 +68,8 @@ public class Character : MonoBehaviour
         }
         if(keyCode == KeyCode.Q)
         {
-            inventoryHandler.DropItem();
+            // TODO: drop one item of current item istead:
+            inventoryHandler.DropOneItem();
         }
     }
 
@@ -117,7 +127,7 @@ public class Character : MonoBehaviour
 
 
 
-    private void HandleMouseClick()
+    private void HandleMouseClick(Vector2 mousePos)
     {
         if(playerInput.backPackOpen == false)
         {
@@ -126,6 +136,14 @@ public class Character : MonoBehaviour
             if (Physics.Raycast(playerRay, out hit, interactionRayLength, groundMask))
             {
                 ModifyTerrain(hit);
+            }
+        } else if(inventoryHandler.HoldingItem())
+        {
+            // TODO: Drop only if click is outside backpack:
+            Debug.Log("MOUSE POS: " + mousePos);
+            if(mousePos.x < UIleftEdge || mousePos.x > UIrightEdge)
+            {
+                inventoryHandler.DropAllItems();
             }
         }
     }

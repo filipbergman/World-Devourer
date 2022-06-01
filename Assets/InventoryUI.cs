@@ -51,15 +51,38 @@ public class InventoryUI : MonoBehaviour
     }
     public void RemoveSlot(int index)
     {
-        foreach (Transform child in UISlotList[index].itemTransform.transform)
+        foreach (Transform child in UISlotList[index].itemTransform)
         {
             Destroy(child.gameObject);
         }
     }
 
-    internal void DropItem(int currentItemIndex)
+    public bool HoldingItem()
     {
-        RemoveSlot(currentItemIndex);
+        return holdingItem;
+    }
+
+    internal void DropOneItem(int currentItemIndex)
+    {
+        // Drop item on ground: // TODO: make sure it does not drop under the ground
+        GameObject prefab = UISlotList[currentItemIndex].inventorySlot.item.itemPrefab;
+        Transform itemPool = transform.Find("/GroundItems");
+        Transform characterTransform = FindObjectOfType<InventoryHandler>().transform;
+        Transform cameraTransform = FindObjectOfType<Camera>().transform;
+        Vector3 spawnPosition = characterTransform.transform.position +
+                                        (2 * cameraTransform.forward.normalized) +
+                                        new Vector3(0, 2, 0);
+        
+        GameObject dropBlock = Instantiate(prefab, itemPool);
+        dropBlock.transform.position = spawnPosition;
+        dropBlock.GetComponent<Rigidbody>().AddForce(300 * cameraTransform.forward.normalized);
+    }
+
+    public void DropHoldingItem(int currentItemIndex)
+    {
+        Destroy(holdingObjectTransform.gameObject);
+        holdingInventorySlot = null;
+        holdingItem = false;
         // Drop item on ground: // TODO: make sure it does not drop under the ground
         GameObject prefab = UISlotList[currentItemIndex].inventorySlot.item.itemPrefab;
         Transform itemPool = transform.Find("/GroundItems");
@@ -72,7 +95,7 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject dropBlock = Instantiate(prefab, itemPool);
             dropBlock.transform.position = spawnPosition;
-            dropBlock.GetComponent<Rigidbody>().AddForce(100 * cameraTransform.forward.normalized);
+            dropBlock.GetComponent<Rigidbody>().AddForce(300 * cameraTransform.forward.normalized);
         }
     }
 
