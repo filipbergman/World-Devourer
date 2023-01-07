@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
 
     public World world;
 
-    public InventoryHandler inventoryHandler;
+    public InventoryUI inventoryUI;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class Character : MonoBehaviour
         playerInput = GetComponent<PlayerInput>();
         playerMovement = GetComponent<PlayerMovement>();
         world = FindObjectOfType<World>();
-        inventoryHandler = FindObjectOfType<InventoryHandler>();
+        inventoryUI = FindObjectOfType<InventoryUI>();
         backpackUI = transform.Find("/InventoryUI/BottomUI");
         float UIWidth = backpackUI.transform.GetComponent<RectTransform>().rect.width;
 
@@ -64,23 +64,23 @@ public class Character : MonoBehaviour
             //FindObjectOfType<CinemachineBrain>().enabled = !playerInput.backPackOpen;
             Cursor.visible = playerInput.backPackOpen;
             Cursor.lockState = CursorLockMode.Confined;
-            inventoryHandler.ToggleInventory();
+            inventoryUI.ToggleInventory();
         }
         if(keyCode == KeyCode.Q)
         {
             // TODO: drop one item of current item istead:
-            inventoryHandler.DropOneItem();
+            inventoryUI.DropOneItem();
         }
     }
 
     private void HandleScrollInput(float val)
     {
-        inventoryHandler.ScrollWheelChangeCurrentItem(val);
+        inventoryUI.ScrollWheelChangeCurrentItem(val);
     }
 
     private void HandleNumberClick(int number)
     {
-        inventoryHandler.SetCurrentItem(number);
+        inventoryUI.SetCurrentItem(number);
     }
 
     private void HandleFlyClick()
@@ -137,13 +137,13 @@ public class Character : MonoBehaviour
             {
                 ModifyTerrain(hit);
             }
-        } else if(inventoryHandler.HoldingItem())
+        } else if(inventoryUI.HoldingItem())
         {
             // TODO: Drop only if click is outside backpack:
-            Debug.Log("MOUSE POS: " + mousePos);
+            //Debug.Log("MOUSE POS: " + mousePos);
             if(mousePos.x < UIleftEdge || mousePos.x > UIrightEdge)
             {
-                inventoryHandler.DropAllItems();
+                inventoryUI.DropAllItems();
             }
         }
     }
@@ -154,7 +154,7 @@ public class Character : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(playerRay, out hit, interactionRayLength, groundMask))
         {
-            BlockType block = inventoryHandler.GetCurrentBlock();
+            BlockType block = inventoryUI.GetCurrentBlock();
             if (block != BlockType.Nothing)
             {
                 AddBlockToTerrain(hit, block);
@@ -173,7 +173,7 @@ public class Character : MonoBehaviour
         bool blockSet = world.SetBlock(hit, block);
         if(blockSet == true)
         {
-            inventoryHandler.ChangeInventorySlotAmount(-1);
+            inventoryUI.ChangeInventorySlotAmount(-1);
         }
     }
 

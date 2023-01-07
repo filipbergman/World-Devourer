@@ -14,4 +14,14 @@ public class ItemHandler : MonoBehaviour
             Instantiate(blockItem.itemPrefab, worldPos, Quaternion.identity, transform.Find("/GroundItems"));
         }
     }
+
+    public BlockItem BlockTypeToItem(BlockType blockType)
+    {
+        foreach (var item in itemList)
+        {
+            if (item.blockType == blockType)
+                return item;
+        }
+        return null;
+    }
 }
