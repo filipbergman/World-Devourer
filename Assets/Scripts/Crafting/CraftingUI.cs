@@ -8,13 +8,13 @@ public class CraftingUI : MonoBehaviour
 
     public Transform craftedSlot;
 
-    public void CheckRecipes(Transform slotTransform, List<InventorySlot> craftingSlots)
+    public void CheckRecipes(List<InventorySlot> craftingSlots)
     {
         // Create a recipe of current inventory crafting slots:
         Recipe tryRecipe = ScriptableObject.CreateInstance<Recipe>();
         for (int i = 0; i < craftingSlots.Count; i++)
         {
-            if (craftingSlots[i] == null)
+            if (craftingSlots[i].item == null)
                 tryRecipe.blockTypes[i] = BlockType.Nothing;
             else
                 tryRecipe.blockTypes[i] = craftingSlots[i].item.blockType;
