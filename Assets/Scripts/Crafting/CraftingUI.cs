@@ -34,6 +34,10 @@ public class CraftingUI : MonoBehaviour
                 Debug.Log("ITEM FOUND: " + recipe.name);
                 FindObjectOfType<InventoryUI>().SpawnCraftedItem(recipe.result);
             }
+            else
+            {
+                FindObjectOfType<InventoryUI>().DespawnCraftedItem();
+            }
         }
     }
 }

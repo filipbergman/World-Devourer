@@ -79,15 +79,16 @@ public class InventoryUI : MonoBehaviour
                 Destroy(holdingObjectTransform.gameObject);
 
                 // Adding more of the same item:
-                //if (inventorySlots[oldIndex].item.id == inventorySlots[int.Parse(slotTransform.name)].item.id)
-                //{
-                //    UpdateUI(inventorySlots[oldIndex].item, 
-                //        inventorySlots[oldIndex].amount + inventorySlots[int.Parse(slotTransform.name)].amount, 
-                //        int.Parse(slotTransform.name));
-                //    holdingItem = false;
-                //}
-                //else
-                //{
+                if (holdingInventorySlot.item.id == inventorySlots[int.Parse(slotTransform.name)].item.id)
+                {
+                    UpdateUI(holdingInventorySlot.item,
+                        holdingInventorySlot.amount + inventorySlots[int.Parse(slotTransform.name)].amount,
+                        int.Parse(slotTransform.name));
+                    holdingItem = false;
+                    oldIndex = int.Parse(slotTransform.name);
+                }
+                else
+                {
                     // Picking up new item from slot
                     Transform newItemTransform = slotTransform.GetChild(0).transform;
                     holdingObjectTransform = newItemTransform;
@@ -102,7 +103,7 @@ public class InventoryUI : MonoBehaviour
                     // Getting block from clicked slot.
                     holdingInventorySlot = tempSlot;
                     holdingAmount = tempAmount;
-                //}
+                }
             }
             else // holding no item: Clicked on slot with item
             {
@@ -137,6 +138,7 @@ public class InventoryUI : MonoBehaviour
         {
             if(slot.item != null)
             {
+                Debug.Log("Item still in slot!");
                 craftingUI.CheckRecipes(inventorySlots.GetRange(inventorySlots.Count - 5, 4));
                 return;
             }
@@ -147,38 +149,46 @@ public class InventoryUI : MonoBehaviour
     // Handles the actual crafting of a new item
     public void HandleCraftedClick(Transform slotTransform)
     {
-        // TODO:
-        if(holdingItem == false || holdingInventorySlot.itemTransform == slotTransform)
+        int index = inventorySlots.Count - 5;
+        foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
         {
-            if(holdingObjectTransform != slotTransform) // Holding 
-            {
-                Debug.Log("WHAT???");
-                holdingItem = true;
-                oldParent = slotTransform;
-                Transform itemTransform = slotTransform.GetChild(0).transform;
-                holdingObjectTransform = itemTransform;
-                itemTransform.SetParent(transform);
-                StartCoroutine("ItemFollowMouse", itemTransform);
+            if (invSlot.item != null)
+                UpdateUI(invSlot.item, invSlot.amount - 1, index);
+            index++;
+        }
+        HandleSlotClick(slotTransform);
+        // TODO:
+        //if (holdingItem == false || holdingInventorySlot.itemTransform == slotTransform)
+        //{
+        //    if(holdingObjectTransform != slotTransform) // Holding 
+        //    {
+        //        Debug.Log("WHAT???");
+        //        holdingItem = true;
+        //        oldParent = slotTransform;
+        //        Transform itemTransform = slotTransform.GetChild(0).transform;
+        //        holdingObjectTransform = itemTransform;
+        //        itemTransform.SetParent(transform);
+        //        StartCoroutine("ItemFollowMouse", itemTransform);
                 
-            } else
-            {
+        //    } else
+        //    {
 
-            }
-            oldIndex = int.Parse(slotTransform.name);
-            holdingInventorySlot = inventorySlots[oldIndex];
-            holdingAmount = 1;
-            //holdingInventorySlot.amount++;
-            //UpdateUI()
+        //    }
+        //    oldIndex = int.Parse(slotTransform.name);
+        //    holdingInventorySlot = inventorySlots[oldIndex];
+        //    holdingAmount = 1;
+        //    //holdingInventorySlot.amount++;
+        //    //UpdateUI()
 
-            // Decrease the amount in the blocks used for crafting the new item
-            int index = inventorySlots.Count - 5;
-            foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
-            {
-                if (invSlot.item != null)
-                    UpdateUI(invSlot.item, invSlot.amount - 1, index);
-                index++;
-            }
-        } 
+        //    // Decrease the amount in the blocks used for crafting the new item
+        //    int index = inventorySlots.Count - 5;
+        //    foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
+        //    {
+        //        if (invSlot.item != null)
+        //            UpdateUI(invSlot.item, invSlot.amount - 1, index);
+        //        index++;
+        //    }
+        //} 
 
     }
 
@@ -238,26 +248,27 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("ToggleInventory");
         backpack.SetActive(!backpack.activeSelf);
-        if (holdingItem)
-        {
-            if (holdingObjectTransform.tag == "Crafting")
-            {
-                // TODO: change this
-                holdingObjectTransform.SetParent(oldParent);
-                holdingObjectTransform.localPosition = Vector3.zero;
-                holdingObjectTransform.SetAsFirstSibling();
-                holdingItem = false;
-                holdingObjectTransform = null;
-            }
-            else
-            {
-                holdingObjectTransform.SetParent(oldParent);
-                holdingObjectTransform.localPosition = Vector3.zero;
-                holdingObjectTransform.SetAsFirstSibling();
-                holdingItem = false;
-                holdingObjectTransform = null;
-            }
-        }
+        
+        //if (holdingItem)
+        //{
+        //    if (holdingObjectTransform.tag == "Crafting")
+        //    {
+        //        // TODO: change this
+        //        holdingObjectTransform.SetParent(oldParent);
+        //        holdingObjectTransform.localPosition = Vector3.zero;
+        //        holdingObjectTransform.SetAsFirstSibling();
+        //        holdingItem = false;
+        //        holdingObjectTransform = null;
+        //    }
+        //    else
+        //    {
+        //        holdingObjectTransform.SetParent(oldParent);
+        //        holdingObjectTransform.localPosition = Vector3.zero;
+        //        holdingObjectTransform.SetAsFirstSibling();
+        //        holdingItem = false;
+        //        holdingObjectTransform = null;
+        //    }
+        //}
     }
 
     public void SpawnCraftedItem(BlockType blockType)
@@ -267,6 +278,12 @@ public class InventoryUI : MonoBehaviour
         imageAndTextObject.GetComponentInChildren<RawImage>().texture = item.blockImage;
         imageAndTextObject.GetComponentInChildren<Text>().text = "1";
         UpdateUI(item, 1, inventorySlots.Count - 1);
+    }
+
+    public void DespawnCraftedItem()
+    {
+        if(inventorySlots[inventorySlots.Count - 1].item != null)
+            UpdateUI(inventorySlots[inventorySlots.Count - 1].item, 0, inventorySlots.Count - 1);
     }
 
     IEnumerator ItemFollowMouse(Transform itemTransform)
@@ -303,10 +320,13 @@ public class InventoryUI : MonoBehaviour
         {
             if(inventorySlots[i].item != null && inventorySlots[i].item.id == item.id)
             {
-                Debug.Log("old: " + inventorySlots[i].item.id + " new: " + item.id);
+                //Debug.Log("old: " + inventorySlots[i].item.id + " new: " + item.id);
                 UpdateUI(item, inventorySlots[i].amount + amount, i);
                 return;
             }
+        }
+        for (int i = 0; i < inventorySlots.Count; i++)
+        {
             if (inventorySlots[i].item == null)
             {
                 UpdateUI(item, amount, i);
@@ -327,20 +347,6 @@ public class InventoryUI : MonoBehaviour
         InventorySlot currentInvSlot = inventorySlots[currentItemIndex];
         UpdateUI(currentInvSlot.item, currentInvSlot.amount + amount, currentItemIndex);
     }
-    //public bool Contains(Item newItem)
-    //{
-    //    int index = 0;
-    //    foreach (var slot in inventorySlots)
-    //    {
-    //        if (slot != null && slot.item == newItem)
-    //        {
-    //            inventorySlots[index].amount += 1;
-    //            return true;
-    //        }
-    //        index++;
-    //    }
-    //    return false;
-    //}
 
     public void SetCurrentItem(int index)
     {

@@ -11,6 +11,7 @@ public class PlayerInput : MonoBehaviour
     public event Action<float> OnScrollInput;
     public event Action<KeyCode> OnInventory;
     public bool backPackOpen = false;
+    public InventoryUI inventoryUI; 
 
     public bool RunningPressed { get; private set; }
     public Vector3 MovementInput { get; private set; }
@@ -31,6 +32,11 @@ public class PlayerInput : MonoBehaviour
         KeyCode.Alpha9,
     };
 
+    private void Awake()
+    {
+        inventoryUI = FindObjectOfType<InventoryUI>();
+    }
+
     private void Update()
     {
         GetMouseClick();
@@ -47,7 +53,7 @@ public class PlayerInput : MonoBehaviour
 
     private void GetInventoryInput()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && inventoryUI.HoldingItem() == false)
         {
             backPackOpen = !backPackOpen;
             OnInventory?.Invoke(KeyCode.E);
@@ -98,7 +104,7 @@ public class PlayerInput : MonoBehaviour
 
     private void GetMouseRightClick()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !backPackOpen)
         {
             OnMouseRightClick?.Invoke();
         }

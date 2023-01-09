@@ -62,9 +62,12 @@ public class Character : MonoBehaviour
         {
             //FindObjectOfType<CinemachineVirtualCamera>().enabled = !playerInput.backPackOpen;
             //FindObjectOfType<CinemachineBrain>().enabled = !playerInput.backPackOpen;
-            Cursor.visible = playerInput.backPackOpen;
-            Cursor.lockState = CursorLockMode.Confined;
-            inventoryUI.ToggleInventory();
+            if(inventoryUI.HoldingItem() == false)
+            {
+                Cursor.visible = playerInput.backPackOpen;
+                Cursor.lockState = CursorLockMode.Confined;
+                inventoryUI.ToggleInventory();
+            }
         }
         if(keyCode == KeyCode.Q)
         {
