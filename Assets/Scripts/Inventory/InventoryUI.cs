@@ -14,10 +14,8 @@ public class InventoryUI : MonoBehaviour
     public CraftingUI craftingUI;
     public Transform craftedTransform;
 
-    private Transform oldParent;
     private Transform holdingObjectTransform;
     private InventorySlot holdingInventorySlot;
-    private int holdingAmount;
     private int oldIndex;
     private bool holdingItem = false;
 
@@ -44,19 +42,18 @@ public class InventoryUI : MonoBehaviour
     private void UpdateUI(Item item, int amount, int invIndex, bool destroyChild = true)
     {
         Debug.Log("UpdateUI: item; " + item.blockType + " amount: " + amount + " index: " + invIndex);
-        inventorySlots[invIndex].item = item;
-        inventorySlots[invIndex].amount = amount;
-
-        if(inventorySlots[invIndex].amount == 0)
+        
+        if(amount == 0) 
         {
-            Debug.Log("Item amount is 0");
-            InventorySlot tempSlot = new InventorySlot(inventorySlots[invIndex].itemTransform, item, amount);
+            InventorySlot tempSlot = new InventorySlot(inventorySlots[invIndex].itemTransform, item, inventorySlots[invIndex].amount);
             inventorySlots[invIndex].item = null;
-            if(destroyChild)
-                Destroy(inventorySlots[invIndex].itemTransform.GetChild(0).gameObject);
+            if (destroyChild)
+                Destroy(inventorySlots[invIndex].itemTransform?.GetChild(0).gameObject);
             holdingInventorySlot = tempSlot;
             return;
         }
+        inventorySlots[invIndex].item = item;
+        inventorySlots[invIndex].amount = amount;
 
         if (inventorySlots[invIndex].itemTransform.childCount == 0) // Checks if an item is already in the slot
         {
@@ -69,10 +66,17 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void PlaceBlock()
+    {
+        UpdateUI(inventorySlots[currentItemIndex].item, inventorySlots[currentItemIndex].amount - 1, currentItemIndex);
+    }
+
     public void HandleSlotClick(Transform slotTransform)
     {
-        if(slotTransform.childCount > 0)
+        // TODO: Click multiple times on crafting slot to stack same item.
+        if (slotTransform.childCount > 0)
         {
+            oldIndex = int.Parse(slotTransform.name);
             if (holdingItem) // Replace item being held
             {
                 StopAllCoroutines();
@@ -85,40 +89,32 @@ public class InventoryUI : MonoBehaviour
                         holdingInventorySlot.amount + inventorySlots[int.Parse(slotTransform.name)].amount,
                         int.Parse(slotTransform.name));
                     holdingItem = false;
-                    oldIndex = int.Parse(slotTransform.name);
                 }
                 else
                 {
                     // Picking up new item from slot
-                    Transform newItemTransform = slotTransform.GetChild(0).transform;
-                    holdingObjectTransform = newItemTransform;
+                    holdingObjectTransform = slotTransform.GetChild(0).transform;
                     holdingObjectTransform.SetParent(transform);
-                    oldIndex = int.Parse(slotTransform.name);
-                    int tempAmount = inventorySlots[oldIndex].amount;
                     StartCoroutine("ItemFollowMouse", holdingObjectTransform);
                     InventorySlot tempSlot = new InventorySlot(slotTransform, inventorySlots[oldIndex].item, inventorySlots[oldIndex].amount);
 
                     // Placing old item in slot
-                    UpdateUI(holdingInventorySlot.item, holdingAmount, int.Parse(slotTransform.name));
+                    UpdateUI(holdingInventorySlot.item, holdingInventorySlot.amount, int.Parse(slotTransform.name));
                     // Getting block from clicked slot.
                     holdingInventorySlot = tempSlot;
-                    holdingAmount = tempAmount;
                 }
             }
             else // holding no item: Clicked on slot with item
             {
                 holdingItem = true;
-                oldParent = slotTransform;
                 Transform itemTransform = slotTransform.GetChild(0).transform;
                 holdingObjectTransform = itemTransform;
                 itemTransform.SetParent(transform);
                 StartCoroutine("ItemFollowMouse", itemTransform);
 
-                oldIndex = int.Parse(slotTransform.name);
                 holdingInventorySlot = inventorySlots[oldIndex];
-                holdingAmount = inventorySlots[oldIndex].amount;
-                UpdateUI(holdingInventorySlot.item, 0, oldIndex, false); // Will remove data where the item was before.
-                // TODO: if user closes inventory, place it back where it was:
+                // Will remove data where the item was before:
+                UpdateUI(holdingInventorySlot.item, 0, oldIndex, false);
             }
         } 
         else if(holdingItem) // holding item: Clicked on slot with no item
@@ -127,7 +123,7 @@ public class InventoryUI : MonoBehaviour
             holdingObjectTransform = null;
             holdingItem = false;
             Debug.Log("Add item to slot: " + holdingInventorySlot.item.blockType);
-            UpdateUI(holdingInventorySlot.item, holdingAmount, int.Parse(slotTransform.name));
+            UpdateUI(holdingInventorySlot.item, holdingInventorySlot.amount, int.Parse(slotTransform.name));
         }
         CheckCraftingSlots();
     }
@@ -138,7 +134,6 @@ public class InventoryUI : MonoBehaviour
         {
             if(slot.item != null)
             {
-                Debug.Log("Item still in slot!");
                 craftingUI.CheckRecipes(inventorySlots.GetRange(inventorySlots.Count - 5, 4));
                 return;
             }
@@ -157,39 +152,6 @@ public class InventoryUI : MonoBehaviour
             index++;
         }
         HandleSlotClick(slotTransform);
-        // TODO:
-        //if (holdingItem == false || holdingInventorySlot.itemTransform == slotTransform)
-        //{
-        //    if(holdingObjectTransform != slotTransform) // Holding 
-        //    {
-        //        Debug.Log("WHAT???");
-        //        holdingItem = true;
-        //        oldParent = slotTransform;
-        //        Transform itemTransform = slotTransform.GetChild(0).transform;
-        //        holdingObjectTransform = itemTransform;
-        //        itemTransform.SetParent(transform);
-        //        StartCoroutine("ItemFollowMouse", itemTransform);
-                
-        //    } else
-        //    {
-
-        //    }
-        //    oldIndex = int.Parse(slotTransform.name);
-        //    holdingInventorySlot = inventorySlots[oldIndex];
-        //    holdingAmount = 1;
-        //    //holdingInventorySlot.amount++;
-        //    //UpdateUI()
-
-        //    // Decrease the amount in the blocks used for crafting the new item
-        //    int index = inventorySlots.Count - 5;
-        //    foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
-        //    {
-        //        if (invSlot.item != null)
-        //            UpdateUI(invSlot.item, invSlot.amount - 1, index);
-        //        index++;
-        //    }
-        //} 
-
     }
 
     public bool HoldingItem()
@@ -197,7 +159,7 @@ public class InventoryUI : MonoBehaviour
         return holdingItem;
     }
 
-    internal void DropOneItem(int currentItemIndex)
+    internal void DropOneItem()
     {
         // Drop item on ground: // TODO: make sure it does not drop under the ground
         if (inventorySlots[currentItemIndex].item != null)
@@ -208,29 +170,33 @@ public class InventoryUI : MonoBehaviour
                                             (2 * cameraTransform.forward.normalized) +
                                             new Vector3(0, 2, 0);
 
-            GameObject dropBlock = Instantiate(prefab, itemPool);
-            dropBlock.transform.position = spawnPosition;
-            dropBlock.GetComponent<Rigidbody>().AddForce(300 * cameraTransform.forward.normalized);
+            ThrowItem(prefab, spawnPosition);
+            UpdateUI(inventorySlots[currentItemIndex].item, inventorySlots[currentItemIndex].amount - 1, currentItemIndex);
         }
     }
 
-    public void DropHoldingItem(int currentItemIndex)
+    public void DropHoldingItem()
     {
+        // Drop item on ground: // TODO: make sure it does not drop under the ground
         GameObject prefab = holdingInventorySlot.item.itemPrefab;
         Destroy(holdingObjectTransform.gameObject);
-        holdingInventorySlot = null;
+        
         holdingItem = false;
-        // Drop item on ground: // TODO: make sure it does not drop under the ground
         Transform characterTransform = FindObjectOfType<InventoryHandler>().transform;
         Vector3 spawnPosition = characterTransform.transform.position +
                                         (2 * cameraTransform.forward.normalized) +
                                         new Vector3(0, 2, 0);
-        for (int i = 0; i < inventorySlots[currentItemIndex].amount; i++)
+        for (int i = 0; i < holdingInventorySlot.amount; i++)
         {
-            GameObject dropBlock = Instantiate(prefab, itemPool);
-            dropBlock.transform.position = spawnPosition;
-            dropBlock.GetComponent<Rigidbody>().AddForce(300 * cameraTransform.forward.normalized);
+            ThrowItem(prefab, spawnPosition);
         }
+    }
+
+    private void ThrowItem(GameObject prefab, Vector3 spawnPosition)
+    {
+        GameObject dropBlock = Instantiate(prefab, itemPool);
+        dropBlock.transform.position = spawnPosition;
+        dropBlock.GetComponent<Rigidbody>().AddForce(300 * cameraTransform.forward.normalized);
     }
 
     public void SetCurrentSlot(int index)
@@ -248,27 +214,6 @@ public class InventoryUI : MonoBehaviour
     {
         Debug.Log("ToggleInventory");
         backpack.SetActive(!backpack.activeSelf);
-        
-        //if (holdingItem)
-        //{
-        //    if (holdingObjectTransform.tag == "Crafting")
-        //    {
-        //        // TODO: change this
-        //        holdingObjectTransform.SetParent(oldParent);
-        //        holdingObjectTransform.localPosition = Vector3.zero;
-        //        holdingObjectTransform.SetAsFirstSibling();
-        //        holdingItem = false;
-        //        holdingObjectTransform = null;
-        //    }
-        //    else
-        //    {
-        //        holdingObjectTransform.SetParent(oldParent);
-        //        holdingObjectTransform.localPosition = Vector3.zero;
-        //        holdingObjectTransform.SetAsFirstSibling();
-        //        holdingItem = false;
-        //        holdingObjectTransform = null;
-        //    }
-        //}
     }
 
     public void SpawnCraftedItem(BlockType blockType)
@@ -298,22 +243,6 @@ public class InventoryUI : MonoBehaviour
     // ----------------------------------------------------------------------------
     // InventoryHandler
     // ----------------------------------------------------------------------------
-    // TODO: only nullify items?
-    internal void DropAllItems()
-    {
-        DropHoldingItem(currentItemIndex); 
-        inventorySlots[currentItemIndex] = null;
-    }
-
-    internal void DropOneItem()
-    {
-        if (inventorySlots[currentItemIndex] != null)
-        {
-            DropOneItem(currentItemIndex);
-            ChangeInventorySlotAmount(-1);
-        }
-    }
-
     public void AddToInventory(Item item, int amount)
     {
         for (int i = 0; i < inventorySlots.Count; i++)
@@ -340,12 +269,6 @@ public class InventoryUI : MonoBehaviour
         if (inventorySlots[currentItemIndex].item != null)
             return inventorySlots[currentItemIndex].item.blockType;
         return BlockType.Nothing;
-    }
-
-    public void ChangeInventorySlotAmount(int amount)
-    {
-        InventorySlot currentInvSlot = inventorySlots[currentItemIndex];
-        UpdateUI(currentInvSlot.item, currentInvSlot.amount + amount, currentItemIndex);
     }
 
     public void SetCurrentItem(int index)

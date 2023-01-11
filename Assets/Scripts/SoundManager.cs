@@ -5,25 +5,40 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public List<AudioClip> audioClipList;
-
     public AudioClip itemPopSound;
+
+    private AudioSource audioSource;
 
     public void PlayPopSound()
     {
-        GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.PlayOneShot(itemPopSound);
+        StopAllCoroutines();
+        StartCoroutine(PlaySoundEffect());
     }
 
     public void PlaySound(BlockType blockType)
     {
+        StopAllCoroutines();
+        StartCoroutine(PlaySoundEffect(blockType));
+    }
+
+    private IEnumerator PlaySoundEffect(BlockType blockType = BlockType.Air)
+    {
         GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        soundGameObject.transform.SetParent(transform);
+        Destroy(soundGameObject, 2);
+        audioSource = soundGameObject.AddComponent<AudioSource>();
+        if (blockType == BlockType.Air)
+        {
+            audioSource.PlayOneShot(itemPopSound);
+            yield return null;
+        }
+            
         string blockName = blockType.ToString().ToLower();
         foreach (AudioClip clip in audioClipList)
         {
             if (clip.name.StartsWith(blockName))
                 audioSource.PlayOneShot(clip);
         }
+        yield return null;
     }
 }

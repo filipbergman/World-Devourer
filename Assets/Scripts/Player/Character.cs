@@ -146,7 +146,7 @@ public class Character : MonoBehaviour
             //Debug.Log("MOUSE POS: " + mousePos);
             if(mousePos.x < UIleftEdge || mousePos.x > UIrightEdge)
             {
-                inventoryUI.DropAllItems();
+                inventoryUI.DropHoldingItem();
             }
         }
     }
@@ -176,7 +176,7 @@ public class Character : MonoBehaviour
         bool blockSet = world.SetBlock(hit, block);
         if(blockSet == true)
         {
-            inventoryUI.ChangeInventorySlotAmount(-1);
+            inventoryUI.PlaceBlock();
         }
     }
 
