@@ -18,6 +18,7 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot holdingInventorySlot;
     private int oldIndex;
     private bool holdingItem = false;
+    private int holdingCraftedAmount;
 
     private Transform cameraTransform;
     private Transform itemPool;
@@ -39,31 +40,32 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private void UpdateUI(Item item, int amount, int invIndex, bool destroyChild = true)
+    private void UpdateUI(Item item, int amount, int invIndex, bool destroyChild = true, bool changeHoldingAmount = true)
     {
-        Debug.Log("UpdateUI: item; " + item.blockType + " amount: " + amount + " index: " + invIndex);
+        Debug.Log("UpdateUI: item; " + item.blockType + " amount: " + amount + " index: " + invIndex + " CHANGE: " + changeHoldingAmount);
         
         if(amount == 0) 
         {
+            Debug.Log("AMOUNT 0");
             InventorySlot tempSlot = new InventorySlot(inventorySlots[invIndex].itemTransform, item, inventorySlots[invIndex].amount);
             inventorySlots[invIndex].item = null;
             if (destroyChild)
                 Destroy(inventorySlots[invIndex].itemTransform?.GetChild(0).gameObject);
-            holdingInventorySlot = tempSlot;
+            if(changeHoldingAmount)
+                holdingInventorySlot = tempSlot;
             return;
         }
         inventorySlots[invIndex].item = item;
         inventorySlots[invIndex].amount = amount;
 
-        if (inventorySlots[invIndex].itemTransform.childCount == 0) // Checks if an item is already in the slot
+        if (inventorySlots[invIndex].itemTransform.childCount == 0) // Checks if the slot is empty
         {
             GameObject imageAndTextObject = Instantiate(UISlotPrefab, inventorySlots[invIndex].itemTransform);
             imageAndTextObject.GetComponentInChildren<RawImage>().texture = inventorySlots[invIndex].item.blockImage;
-            inventorySlots[invIndex].itemTransform.GetComponentInChildren<Text>().text = inventorySlots[invIndex].amount.ToString();
-        } else
-        {
-            inventorySlots[invIndex].itemTransform.GetComponentInChildren<Text>().text = inventorySlots[invIndex].amount.ToString();
-        }
+        } 
+        inventorySlots[invIndex].itemTransform.GetComponentInChildren<Text>().text = inventorySlots[invIndex].amount.ToString();
+        
+        Debug.Log("HOLDING AMOUNT UI: " + holdingInventorySlot?.amount);
     }
 
     public void PlaceBlock()
@@ -74,8 +76,14 @@ public class InventoryUI : MonoBehaviour
     public void HandleSlotClick(Transform slotTransform)
     {
         // TODO: Click multiple times on crafting slot to stack same item.
-        if (slotTransform.childCount > 0)
+        if (holdingItem && slotTransform == inventorySlots[inventorySlots.Count - 1].itemTransform && slotTransform.childCount > 0)
         {
+            holdingInventorySlot.amount++; // TODO: do not do this if recipe is empty
+            holdingObjectTransform.GetComponentInChildren<Text>().text = holdingInventorySlot.amount.ToString();
+        }
+        else if (slotTransform.childCount > 0)
+        {
+            Debug.Log("Clicked on slot with item");
             oldIndex = int.Parse(slotTransform.name);
             if (holdingItem) // Replace item being held
             {
@@ -119,10 +127,10 @@ public class InventoryUI : MonoBehaviour
         } 
         else if(holdingItem) // holding item: Clicked on slot with no item
         {
+            Debug.Log("Holding item: Clicked on slot with no item");
             Destroy(holdingObjectTransform.gameObject);
             holdingObjectTransform = null;
             holdingItem = false;
-            Debug.Log("Add item to slot: " + holdingInventorySlot.item.blockType);
             UpdateUI(holdingInventorySlot.item, holdingInventorySlot.amount, int.Parse(slotTransform.name));
         }
         CheckCraftingSlots();
@@ -138,20 +146,35 @@ public class InventoryUI : MonoBehaviour
                 return;
             }
         }
+        if(inventorySlots[inventorySlots.Count - 1].itemTransform?.childCount > 0)
+        {
+            // Recipe slots are empty:
+            // TODO: redo UpdateUI?
+            Debug.Log("RECIPE SLOTS ARE EMPTY: " + inventorySlots[inventorySlots.Count - 1].itemTransform);
+
+            Destroy(inventorySlots[inventorySlots.Count - 1].itemTransform?.GetChild(0).gameObject);
+            inventorySlots[inventorySlots.Count - 1].amount = 0;
+            inventorySlots[inventorySlots.Count - 1].item = null;
+        }
         
     }
 
     // Handles the actual crafting of a new item
     public void HandleCraftedClick(Transform slotTransform)
     {
-        int index = inventorySlots.Count - 5;
-        foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
+        if(slotTransform.childCount > 0)
         {
-            if (invSlot.item != null)
-                UpdateUI(invSlot.item, invSlot.amount - 1, index);
-            index++;
+            int index = inventorySlots.Count - 5;
+            foreach (InventorySlot invSlot in inventorySlots.GetRange(inventorySlots.Count - 5, 4))
+            {
+                if (invSlot.item != null)
+                {
+                    UpdateUI(invSlot.item, invSlot.amount - 1, index);
+                }
+                index++;
+            }
+            HandleSlotClick(slotTransform);
         }
-        HandleSlotClick(slotTransform);
     }
 
     public bool HoldingItem()
@@ -201,7 +224,6 @@ public class InventoryUI : MonoBehaviour
 
     public void SetCurrentSlot(int index)
     {
-        //Debug.Log("SetCurrentSlot, Index: " + index);
         inventorySlots[index].itemTransform.GetComponent<RawImage>().color = new Color32(120, 120, 120, 255);
         for (int i = 0; i < inventorySlots.Count; i++)
         {
@@ -212,7 +234,6 @@ public class InventoryUI : MonoBehaviour
 
     internal void ToggleInventory()
     {
-        Debug.Log("ToggleInventory");
         backpack.SetActive(!backpack.activeSelf);
     }
 
@@ -222,7 +243,11 @@ public class InventoryUI : MonoBehaviour
         Item item = FindObjectOfType<ItemHandler>().BlockTypeToItem(blockType);
         imageAndTextObject.GetComponentInChildren<RawImage>().texture = item.blockImage;
         imageAndTextObject.GetComponentInChildren<Text>().text = "1";
-        UpdateUI(item, 1, inventorySlots.Count - 1);
+
+
+
+
+        UpdateUI(item, 1, inventorySlots.Count - 1); // TODO: Problem: holdingItem.amount is decreased here to 1 always, it should not
     }
 
     public void DespawnCraftedItem()

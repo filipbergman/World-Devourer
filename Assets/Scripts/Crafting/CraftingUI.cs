@@ -31,12 +31,13 @@ public class CraftingUI : MonoBehaviour
             }
             if (equalityCheck == 4)
             {
-                Debug.Log("ITEM FOUND: " + recipe.name);
+                //Debug.Log("ITEM FOUND: " + recipe.name);
                 FindObjectOfType<InventoryUI>().SpawnCraftedItem(recipe.result);
             }
             else
             {
-                FindObjectOfType<InventoryUI>().DespawnCraftedItem();
+                //Debug.Log("DESPAWN");
+                //FindObjectOfType<InventoryUI>().DespawnCraftedItem();
             }
         }
     }
