@@ -18,7 +18,6 @@ public class InventoryUI : MonoBehaviour
     private InventorySlot holdingInventorySlot;
     private int oldIndex;
     private bool holdingItem = false;
-    private int holdingCraftedAmount;
 
     private Transform cameraTransform;
     private Transform itemPool;
@@ -46,7 +45,6 @@ public class InventoryUI : MonoBehaviour
         
         if(amount == 0) 
         {
-            Debug.Log("AMOUNT 0");
             InventorySlot tempSlot = new InventorySlot(inventorySlots[invIndex].itemTransform, item, inventorySlots[invIndex].amount);
             inventorySlots[invIndex].item = null;
             if (destroyChild)
@@ -64,8 +62,6 @@ public class InventoryUI : MonoBehaviour
             imageAndTextObject.GetComponentInChildren<RawImage>().texture = inventorySlots[invIndex].item.blockImage;
         } 
         inventorySlots[invIndex].itemTransform.GetComponentInChildren<Text>().text = inventorySlots[invIndex].amount.ToString();
-        
-        Debug.Log("HOLDING AMOUNT UI: " + holdingInventorySlot?.amount);
     }
 
     public void PlaceBlock()
@@ -80,6 +76,7 @@ public class InventoryUI : MonoBehaviour
         {
             holdingInventorySlot.amount++; // TODO: do not do this if recipe is empty
             holdingObjectTransform.GetComponentInChildren<Text>().text = holdingInventorySlot.amount.ToString();
+            Destroy(inventorySlots[inventorySlots.Count - 1].itemTransform?.GetChild(0).gameObject);
         }
         else if (slotTransform.childCount > 0)
         {
@@ -146,12 +143,11 @@ public class InventoryUI : MonoBehaviour
                 return;
             }
         }
+        // Only happens if previous loop does not return
         if(inventorySlots[inventorySlots.Count - 1].itemTransform?.childCount > 0)
         {
             // Recipe slots are empty:
             // TODO: redo UpdateUI?
-            Debug.Log("RECIPE SLOTS ARE EMPTY: " + inventorySlots[inventorySlots.Count - 1].itemTransform);
-
             Destroy(inventorySlots[inventorySlots.Count - 1].itemTransform?.GetChild(0).gameObject);
             inventorySlots[inventorySlots.Count - 1].amount = 0;
             inventorySlots[inventorySlots.Count - 1].item = null;
@@ -169,7 +165,7 @@ public class InventoryUI : MonoBehaviour
             {
                 if (invSlot.item != null)
                 {
-                    UpdateUI(invSlot.item, invSlot.amount - 1, index);
+                    UpdateUI(invSlot.item, invSlot.amount - 1, index, true, false);
                 }
                 index++;
             }
@@ -243,9 +239,6 @@ public class InventoryUI : MonoBehaviour
         Item item = FindObjectOfType<ItemHandler>().BlockTypeToItem(blockType);
         imageAndTextObject.GetComponentInChildren<RawImage>().texture = item.blockImage;
         imageAndTextObject.GetComponentInChildren<Text>().text = "1";
-
-
-
 
         UpdateUI(item, 1, inventorySlots.Count - 1); // TODO: Problem: holdingItem.amount is decreased here to 1 always, it should not
     }
